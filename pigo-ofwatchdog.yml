@@ -4,9 +4,9 @@ provider:
 
 functions:
   pigo-face-detector:
-    lang: go
+    lang: go-ofwatchdog
     handler: ./pigo-openfaas
-    image: esimov/pigo-openfaas:0.1
+    image: dfquaresma/pigo-openfaas:0.1
     environment:
       input_mode: "url"
       output_mode: "image"

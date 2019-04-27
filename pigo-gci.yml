@@ -1,0 +1,12 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+
+functions:
+  pigo-face-detector:
+    lang: go-gci
+    handler: ./pigo-openfaas
+    image: dfquaresma/pigo-openfaas:0.1
+    environment:
+      input_mode: "url"
+      output_mode: "image"
