@@ -64,8 +64,10 @@ type DetectionResult struct {
 
 // Handle a serverless request
 func Handle(req http.Request) ([]byte, error) {
-	url := OldHandle([]byte(os.Getenv("IMAGE_URL")))
-	return []byte(url), nil
+	before := time.Now()
+	OldHandle([]byte(os.Getenv("image_url")))
+	output := time.Since(before).Nanoseconds()
+	return []byte(fmt.Sprintf("%v", output)), nil
 }
 
 // Original pigo serverless handle
