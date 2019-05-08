@@ -6,7 +6,7 @@ To run the function locally you have to make sure OpenFaaS is up and running. Re
 
 Clone the repository:
 ```bash
-$ git clone https://github.com/esimov/pigo-openfaas
+$ git clone https://github.com/dfquaresma/pigo-openfaas
 ```
 
 #### Build
