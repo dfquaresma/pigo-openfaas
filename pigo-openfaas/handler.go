@@ -63,7 +63,13 @@ type DetectionResult struct {
 }
 
 // Handle a serverless request
-func Handle(req []byte) string {
+func Handle(req http.Request) ([]byte, error) {
+	url := OldHandle([]byte(os.Getenv("IMAGE_URL")))
+	return []byte(url), nil
+}
+
+// Original pigo serverless handle
+func OldHandle(req []byte) string {
 	var (
 		resp  DetectionResult
 		rects []image.Rectangle

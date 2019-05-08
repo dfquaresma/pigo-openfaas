@@ -4,7 +4,7 @@ provider:
 
 functions:
   pigo-face-detector:
-    lang: go-gci
+    lang: go-ofwatchdog
     handler: ./pigo-openfaas
     image: dfquaresma/pigo-openfaas:0.1
     environment:
