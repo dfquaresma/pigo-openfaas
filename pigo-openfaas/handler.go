@@ -35,7 +35,6 @@ import (
 	"log"
 	"math"
 	"net/http"
-	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -43,6 +42,8 @@ import (
 	"github.com/esimov/pigo/core"
 	"github.com/fogleman/gg"
 )
+
+var req = []byte(os.Getenv("image_url"))
 
 var dc *gg.Context
 
@@ -65,13 +66,13 @@ type DetectionResult struct {
 // Handle a serverless request
 func Handle(req http.Request) ([]byte, error) {
 	before := time.Now()
-	OldHandle([]byte(os.Getenv("image_url")))
+	OldHandle()
 	output := time.Since(before).Nanoseconds()
 	return []byte(fmt.Sprintf("%v", output)), nil
 }
 
 // Original pigo serverless handle
-func OldHandle(req []byte) string {
+func OldHandle() string {
 	var (
 		resp  DetectionResult
 		rects []image.Rectangle
@@ -116,11 +117,6 @@ func OldHandle(req []byte) string {
 	}
 
 	var output string
-	query, err := url.ParseQuery(os.Getenv("Http_Query"))
-	if err == nil {
-		output = query.Get("output")
-	}
-
 	if val, exists := os.LookupEnv("output_mode"); exists {
 		output = val
 	}
