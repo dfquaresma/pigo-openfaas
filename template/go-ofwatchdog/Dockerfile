@@ -3,10 +3,11 @@ FROM golang:1.10.4-alpine3.8 as builder
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
 ARG CGO_ENABLED=0
+ARG WATCHDOG_VERSION=0.5.1
 
 RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/$WATCHDOG_VERSION/of-watchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
@@ -30,7 +31,6 @@ RUN mkdir -p /home/app
 WORKDIR /home/app
 
 COPY --from=builder /usr/bin/fwatchdog         .
-
 COPY --from=builder /go/src/handler/function/  .
 COPY --from=builder /go/src/handler/handler    .
 
@@ -38,6 +38,9 @@ RUN chown -R app /home/app
 
 USER app
 
+ENV mode="http"
+ENV HANDLER_PORT="8082"
+ENV upstream_url="http://127.0.0.1:${HANDLER_PORT}"
 ENV fprocess="./handler"
 EXPOSE 8080
 
