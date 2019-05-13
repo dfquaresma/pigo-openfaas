@@ -78,9 +78,9 @@ func init() {
 
 // Handle a serverless request
 func Handle(req http.Request) ([]byte, error) {
-	//before := time.Now()
-	output := OldHandle()
-	//output := time.Since(before).Nanoseconds()
+	before := time.Now()
+	OldHandle()
+	output := time.Since(before).Nanoseconds()
 	return []byte(fmt.Sprintf("%v", output)), nil
 }
 
