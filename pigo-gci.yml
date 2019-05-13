@@ -10,4 +10,4 @@ functions:
     environment:
       input_mode: "url"
       output_mode: "image"
-      image_url: https://user-images.githubusercontent.com/883386/53553708-ebb88a00-3b46-11e9-9ea8-73c6b7f9dfa1.jpg
+      image_path: /home/app/samples/nasa.jpg
